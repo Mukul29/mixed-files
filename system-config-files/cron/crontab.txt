@@ -1,0 +1,2 @@
+#min #hour #dom #month #dow
+* * * * * $HOME/scripts/battery.sh >> /dev/null 2>&1
