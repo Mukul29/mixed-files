@@ -1,2 +1,9 @@
+alacritty-git
+alacritty-terminfo-git
+anbox-modules-dkms-git
+connman-gtk
+gksu
+gnusim8085
 godot-bin
 hplip-plugin
+noip
