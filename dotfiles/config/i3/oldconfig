@@ -31,18 +31,18 @@ font pango:Ubuntu Condensed Bold 9
 floating_modifier $mod
 
 # start a terminal
-set $terminal "termite"
+set $terminal "xfce4-terminal"
 bindsym $mod+Return exec --no-startup-id $terminal
 
 # kill focused window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+x exec dmenu_run -b -p "run: " -nb "#232729" -sb "#33393b" -fn "Ubuntu-10:bold"
+bindsym $mod+x exec dmenu_run -p "run: " -nb "#2F343F" -sb "#676e7d" -fn "Ubuntu-10:bold"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -b -i -p "launch: " -nb "#232729" -sb "#33393b" -fn "Ubuntu-10:bold"'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -p "run: " -nb "#2F343F" -sb "#676e7d" -fn "Ubuntu-10:bold"'
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -195,25 +195,24 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #232729
-set $inactive-bg-color   #232729
+
+set $bg-color 	         #2f343f
+set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
-set $light-gray		 #A0A0A0
 
 # window colors
 #                       border              	background     		text                 	indicator
-client.focused          $focused-bg-color       $light-gray 		$text-color          	$light-gray
-client.unfocused        $inactive-bg-color 	$inactive-bg-color	$inactive-text-color    #232729
-client.focused_inactive $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#232729	
-client.urgent           $urgent-bg-color    	$urgent-bg-color 	$text-color          	#232729
-                                                                                                   
-hide_edge_borders smart
+client.focused          $bg-color           	$bg-color          	$text-color          	#00ff00
+client.unfocused        $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#00ff00
+client.focused_inactive $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#00ff00
+client.urgent           $urgent-bg-color    	$urgent-bg-color 	$text-color      	#00ff00
+
+hide_edge_borders both
 # bar
 bar {
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	height 18
+  	status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	colors {
 		background $bg-color
 	    	separator #757575
@@ -261,15 +260,13 @@ floating_maximum_size 700x700
 exec_always --no-startup-id nitrogen --restore
 
 #Launch compton
-exec_always --no-startup-id compton --config /home/mukul/.config/compton/compton.conf -b 
+exec_always --no-startup-id compton -cb
 
 #Launch pcmanfm daemon
 exec_always --no-startup-id sleep 1; pcmanfm -d
 
 #Launch redshift
-exec_always --no-startup-id redshift -O 4750
-bindsym $mod+shift+z exec --no-startup-id redshift -x
-
+exec_always --no-startup-id sleep 2; redshift -l 28.7:77.1 >/dev/null 2>&1
 #Take screenshots
 bindsym --release Print exec "scrot -m '/home/mukul/Pictures/screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
 bindsym --release Shift+Print exec "scrot -s '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
@@ -303,17 +300,3 @@ bindsym --release button2 kill
 
 # The middle button and a modifer over any part of the window kills the window
 bindsym --whole-window $mod+button2 kill
-
-# Jump to urgent window
-bindsym $mod+z [urgent=latest] focus
-
-#i3 gaps
-gaps inner 5
-gaps outer 8
-#smart_gaps on
-
-#disable title bar
-for_window [class=".*"] border pixel 3
-
-#start nm-applet on boot
-exec_always --no-startup-id nm-applet

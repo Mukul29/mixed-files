@@ -1,2 +1,3 @@
 #min #hour #dom #month #dow
-* * * * * $HOME/scripts/battery.sh >> /dev/null 2>&1
+ *     *     *   *      *    $HOME/scripts/battery.sh >> /dev/null 2>&1
+ 30    23    *   *      *    $HOME/scripts/updatesNotify.sh >> /dev/null 2>&1

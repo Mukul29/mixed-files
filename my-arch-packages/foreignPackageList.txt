@@ -7,3 +7,5 @@ gnusim8085
 godot-bin
 hplip-plugin
 noip
+otf-font-awesome-4
+ttf-font-awesome-4

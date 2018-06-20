@@ -39,7 +39,7 @@ interval=1
 #Weather info
 [weather]
 command=/home/mukul/.config/i3/weather.sh "ASI|IN|IN010|NEWDELHI"
-interval=300
+interval=1800
 
 #Check Updates
 [updates]

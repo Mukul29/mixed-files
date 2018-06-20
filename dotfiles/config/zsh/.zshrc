@@ -96,3 +96,6 @@ source $ZSH/oh-my-zsh.sh
 #Make vim the default editor
 export VISUAL=vim
 export EDITOR=vim
+
+alias note='cd ~/Misc/notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'
+alias notes='cd ~/Misc/notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'
