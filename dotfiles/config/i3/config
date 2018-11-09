@@ -32,29 +32,35 @@ floating_modifier $mod
 
 # start a terminal
 set $terminal "termite"
+# Shortcut: Super+Enter Opens the terminal
 bindsym $mod+Return exec --no-startup-id $terminal
 
+# Shortcut: Super+Q Close an application
 # kill focused window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+x exec dmenu_run -b -p "run: " -nb "#232729" -sb "#33393b" -fn "Ubuntu-10:bold"
+# Shortcut: Super+X Run a program
+bindsym $mod+x exec dmenu_run -b -p "run: " -nb "#080808" -sb "#33393b" -fn "Ubuntu-10:bold"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -b -i -p "launch: " -nb "#232729" -sb "#33393b" -fn "Ubuntu-10:bold"'
+# Shortcut: Super+D Launch an application
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -b -i -p "launch: " -nb "#080808" -sb "#33393b" -fn "Ubuntu-10:bold"'
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
+# Shortcut: Super+[ArrowKey] Change focus
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+# Shortcut: Super+Shift+[ArrowKey] Move focused window
 # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
@@ -67,12 +73,15 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+
 # split in horizontal orientation
 bindsym $mod+h split h
+
 
 # split in vertical orientation
 bindsym $mod+v split v
 
+# Shortcut: Super+f Toggle fullscreen
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -105,6 +114,8 @@ set $workspace8 "8 "
 set $workspace9 "9 "
 set $workspace10 "10 "
 
+
+# Shortcut: Super+[Number] Switch to workspace [Number]
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
 bindsym $mod+2 workspace $workspace2
@@ -116,6 +127,7 @@ bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
+
 
 # switch to previous and next workspace
 bindsym $mod+Shift+Tab workspace prev
@@ -150,6 +162,9 @@ assign [class=$editor] $workspace5
 #always open shotwell in floating mode
 for_window [class="Shotwell"] floating enable
 
+#always open main.py in floating mode
+for_window [class="main.py"] floating enable
+
 #always open Qalculate in floating mode
 for_window [class="Qalculate"] floating enable
 
@@ -166,6 +181,7 @@ assign [class="Deluge"] $workspace7
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -195,8 +211,8 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #232729
-set $inactive-bg-color   #232729
+set $bg-color 	         #080808
+set $inactive-bg-color   #080808
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
@@ -204,7 +220,7 @@ set $light-gray		 #A0A0A0
 
 # window colors
 #                       border              	background     		text                 	indicator
-client.focused          $focused-bg-color       $light-gray 		$text-color          	$light-gray
+client.focused          $bg-color       	$light-gray 		$text-color          	$light-gray
 client.unfocused        $inactive-bg-color 	$inactive-bg-color	$inactive-text-color    #232729
 client.focused_inactive $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#232729	
 client.urgent           $urgent-bg-color    	$urgent-bg-color 	$text-color          	#232729
@@ -267,13 +283,16 @@ exec_always --no-startup-id compton --config /home/mukul/.config/compton/compton
 exec_always --no-startup-id sleep 1; pcmanfm -d
 
 #Launch redshift
-exec_always --no-startup-id redshift -O 4750
+exec_always --no-startup-id redshift -O 5000
 bindsym $mod+shift+z exec --no-startup-id redshift -x
+
+#Launch libinput-gestures
+exec_always --no-startup-id libinput-gestures-setup start
 
 #Take screenshots
 bindsym --release Print exec "scrot -m '/home/mukul/Pictures/screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
 bindsym --release Shift+Print exec "scrot -s '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
-bindsym --release $mod+Shift+Print exec "scrot -u -d 4 '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
+bindsym --release $mod+Shift+Print exec "scrot -u '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 
 #Always enable light-locker
 exec_always --no-startup-id light-locker
@@ -293,6 +312,7 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 # bind the shortcut
+# Shortcut: Super+Pause Lock/Logout/Suspend/Reboot/Shutdown
 bindsym $mod+Pause mode "$mode_system"
 
 # open the file explorer
@@ -316,4 +336,9 @@ gaps outer 8
 for_window [class=".*"] border pixel 3
 
 #start nm-applet on boot
-exec_always --no-startup-id nm-applet
+#exec_always --no-startup-id sleep 2; nm-applet
+bindsym $mod+shift+n exec --no-startup-id nm-applet
+bindsym $mod+shift+m exec --no-startup-id pkill nm-applet
+
+# diplay shortcuts
+bindsym $mod+shift+s exec --no-startup-id notify-send -t 5000 "$(cat ~/.shortcuts.txt)"

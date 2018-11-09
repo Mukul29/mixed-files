@@ -4,11 +4,11 @@
 ## Generated on 2018-03-01
 ##
 ## Hong Kong
-Server = http://mirror.xtom.com.hk/archlinux/$repo/os/$arch
+#Server = http://mirror.xtom.com.hk/archlinux/$repo/os/$arch
 ## New Zealand
-Server = http://mirror.smith.geek.nz/archlinux/$repo/os/$arch
+#Server = http://mirror.smith.geek.nz/archlinux/$repo/os/$arch
 ## Bosnia and Herzegovina
-Server = http://archlinux.mirror.ba/$repo/os/$arch
+#Server = http://archlinux.mirror.ba/$repo/os/$arch
 ## United Kingdom
 Server = http://mirror.bytemark.co.uk/archlinux/$repo/os/$arch
 ## United States

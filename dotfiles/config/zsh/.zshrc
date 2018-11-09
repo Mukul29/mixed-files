@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
   export ZSH=/home/mukul/.oh-my-zsh
@@ -96,6 +97,7 @@ source $ZSH/oh-my-zsh.sh
 #Make vim the default editor
 export VISUAL=vim
 export EDITOR=vim
+export QT_QPA_PLATFORMTHEME=qt5ct
 
-alias note='cd ~/Misc/notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'
-alias notes='cd ~/Misc/notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'
+alias note='cd ~/Notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'
+alias notes='cd ~/Notes && vim "$(date +%d-%m-%Y_%R:%S).txt" && cd - > /dev/null'

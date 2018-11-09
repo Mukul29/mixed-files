@@ -43,6 +43,6 @@ set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set t_Co=256
 
-filetype plugin on
-let g:pydiction_location = '/home/mukul/.vim/bundle/pydiction/complete-dict'
-let g:pydiction_menu_height = 3
+"filetype plugin on
+"let g:pydiction_location = '/home/mukul/.vim/bundle/pydiction/complete-dict'
+"let g:pydiction_menu_height = 3
