@@ -8,6 +8,7 @@ scrollback_lines = 999999
 scroll_on_keystroke = true
 scroll_on_output = false
 #urgent_on_bell = true
+fullscreen = false
 
 #[colors]
 #foreground  = #dcdccc
@@ -32,7 +33,7 @@ scroll_on_output = false
 [colors]
 # special
 foreground  = #dcdccc
-background = rgba(0, 0, 0, 0.8)
+background = rgba(0, 0, 0, 0.80)
 cursorColor = #c5c8c6
 
 # black

@@ -156,11 +156,15 @@ assign [class=$fileManager] $workspace3
 assign [class=jetbrains-studio] $workspace4
 
 #always open text editors on workspace5
-set $editor "Mousepad"
+set $editor "code"
 assign [class=$editor] $workspace5
 
 #always open shotwell in floating mode
 for_window [class="Shotwell"] floating enable
+
+#always open Godot in floating mode
+assign [class="Godot"] $workspace4
+
 
 #always open main.py in floating mode
 for_window [class="main.py"] floating enable
@@ -225,7 +229,7 @@ client.unfocused        $inactive-bg-color 	$inactive-bg-color	$inactive-text-co
 client.focused_inactive $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#232729	
 client.urgent           $urgent-bg-color    	$urgent-bg-color 	$text-color          	#232729
                                                                                                    
-hide_edge_borders smart
+# hide_edge_borders smart
 # bar
 bar {
 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
@@ -252,14 +256,9 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 15 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 15 # decrease screen brightness
 
-# Touchpad controls
-bindsym XF86TouchpadToggle exec /home/mukul/scripts/toggleTouchpad.sh # toggle touchpad
-
-# Wifi toggle
-bindsym $mod+F3 exec --no-startup-id /home/mukul/scripts/toggleWifi.sh #toggle wifi
-
 # Screen timeout toggle
-bindsym $mod+F4 exec --no-startup-id /home/mukul/scripts/toggleScreenTimeout.sh
+# bindsym $mod+F4 exec --no-startup-id /home/mukul/scripts/toggleScreenTimeout.sh
+bindsym $mod+F4 exec --no-startup-id xset s off -dpms
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -279,11 +278,8 @@ exec_always --no-startup-id nitrogen --restore
 #Launch compton
 exec_always --no-startup-id compton --config /home/mukul/.config/compton/compton.conf -b 
 
-#Launch pcmanfm daemon
-exec_always --no-startup-id sleep 1; pcmanfm -d
-
 #Launch redshift
-exec_always --no-startup-id redshift -O 5000
+exec --no-startup-id redshift -O 5000
 bindsym $mod+shift+z exec --no-startup-id redshift -x
 
 #Launch libinput-gestures
@@ -296,6 +292,12 @@ bindsym --release $mod+Shift+Print exec "scrot -u '/home/mukul/Pictures/screensh
 
 #Always enable light-locker
 exec_always --no-startup-id light-locker
+
+#Always change Mac address on boot
+exec_always --no-startup-id sudo /root/changeMac.sh
+
+# launch pcmanfm daemon
+exec --no-startup-id pcmanfm -d
 
 #Lock, suspend, shutdown, reboot
 set $Locker light-locker-command -l && sleep 1
@@ -339,6 +341,3 @@ for_window [class=".*"] border pixel 3
 #exec_always --no-startup-id sleep 2; nm-applet
 bindsym $mod+shift+n exec --no-startup-id nm-applet
 bindsym $mod+shift+m exec --no-startup-id pkill nm-applet
-
-# diplay shortcuts
-bindsym $mod+shift+s exec --no-startup-id notify-send -t 5000 "$(cat ~/.shortcuts.txt)"
