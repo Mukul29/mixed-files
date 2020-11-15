@@ -39,14 +39,27 @@ bindsym $mod+Return exec --no-startup-id $terminal
 # kill focused window
 bindsym $mod+q kill
 
+# disable title bar
+for_window [class=".*"] border pixel 3
+for_window [class="Dunst"] border pixel 0
+
 # start dmenu (a program launcher)
 # Shortcut: Super+X Run a program
-bindsym $mod+x exec dmenu_run -b -p "run: " -nb "#000000" -sb "#33393b" -fn "Ubuntu-10:bold"
+# bindsym $mod+x exec dmenu_run -b -p "run: " -nb "#000000" -sb "#33393b" -fn "Ubuntu-10:bold"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # Shortcut: Super+D Launch an application
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -b -i -p "launch: " -nb "#000000" -sb "#33393b" -fn "Ubuntu-10:bold"'
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -b -i -p "launch: " -nb "#000000" -sb "#33393b" -fn "Ubuntu-10:bold"'
+
+
+# Start Rofi
+bindsym $mod+x exec rofi -show run
+# bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu="rofi -dmenu -p 'launch ' -i"
+# bindsym $mod+d exec rofi -combi-modi window#drun -show combi
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Shift+w exec rofi -show window
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -73,21 +86,19 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-
 # split in horizontal orientation
 bindsym $mod+h split h
-
 
 # split in vertical orientation
 bindsym $mod+v split v
 
 # Shortcut: Super+f Toggle fullscreen
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -103,17 +114,16 @@ bindsym $mod+a focus parent
 # bindsym mod+d focus child
 
 #Set variables for workspaces
-set $workspace1 "1 "
-set $workspace2 "2: "
-set $workspace3 "3: "
-set $workspace4 "4: "
-set $workspace5 "5: "
-set $workspace6 "6: "
-set $workspace7 "7: "
-set $workspace8 "8 "
-set $workspace9 "9 "
+set $workspace1 "1:  <span font='Font Awesome 5 Free 8'></span>"
+set $workspace2 "2:  <span font='Font Awesome 5 Brands'></span>"
+set $workspace3 "3:  <span font='Font Awesome 5 Free'></span>"
+set $workspace4 "4:  <span font='Font Awesome 5 Brands'></span>"
+set $workspace5 "5:  <span font='Font Awesome 5 Free'></span>"
+set $workspace6 "6:  <span font='Font Awesome 5 Free'></span>"
+set $workspace7 "7:  <span font='Font Awesome 5 Free'></span>"
+set $workspace8 "8:  <span font='Font Awesome 5 Free'></span>"
+set $workspace9 "9: <span font='Font Awesome 5 Brands'></span>"
 set $workspace10 "10 "
-
 
 # Shortcut: Super+[Number] Switch to workspace [Number]
 # switch to workspace
@@ -127,7 +137,6 @@ bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
-
 
 # switch to previous and next workspace
 bindsym $mod+Shift+Tab workspace prev
@@ -145,41 +154,35 @@ bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
-# always open chrome on workspace2
+# ASSIGN WORKSPACES TO APPLICATIONS
 assign [class="Chromium"] $workspace2
-
-#always open filemanager on workspace3
-set $fileManager "Pcmanfm"
-assign [class=$fileManager] $workspace3
-
-#always open Android Studio on workspace4
-assign [class=jetbrains-studio] $workspace4
-
-#always open text editors on workspace5
-set $editor "code"
-assign [class=$editor] $workspace5
-
-#always open shotwell in floating mode
-for_window [class="Shotwell"] floating enable
-
-#always open Godot in floating mode
+assign [class="firefox"] $workspace2
+assign [class="Pcmanfm"] $workspace3
+assign [class="jetbrains-pycharm-ce"] $workspace4
 assign [class="Godot"] $workspace4
-
-
-#always open main.py in floating mode
-for_window [class="main.py"] floating enable
-
-#always open Qalculate in floating mode
-for_window [class="Qalculate"] floating enable
-
-#always open gimp on workspace6
-for_window [title="GIMP Startup"] move workspace $workspace6
-for_window [class="Gimp"] move workspace $workspace6
-#for_window [window_role="gimp-dock"] floating disable; move left;
-#for_window [window_role="gimp-toolbox"] floating disable; move right;
-
-#always open deluge on workspace7
+assign [class="jetbrains-studio"] $workspace4
+assign [class="code-oss"] $workspace5
+assign [class="Gimp"] $workspace6
 assign [class="Deluge"] $workspace7
+assign [class="Postman"] $workspace8
+assign [class="Thunderbird"] $workspace10
+#######################################
+
+# for windows which don't work with the above syntax
+# always open spotify on workspace9
+# for_window [class="Spotify"] move to workspace $workspace9
+#######################################
+
+####### ALWAYS OPEN IN FLOATING MODE #####
+floating_minimum_size 75 x 50
+floating_maximum_size 700x700
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="Shotwell"] floating enable
+for_window [class="main.py"] floating enable
+for_window [class="Qalculate"] floating enable
+for_window [title="Microsoft Teams Notification"] floating enable
+#######################################
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -187,7 +190,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -215,24 +218,26 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #000000
-set $inactive-bg-color   #000000
+set $bg-color 	         #000000bb
+set $inactive-bg-color   #000000bb
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
-set $light-gray		 #A0A0A0
+set $urgent-bg-color     #E53935bb
+set $light-gray		     #A0A0A0
+set $red #ff0000
 
 # window colors
 #                       border              	background     		text                 	indicator
 client.focused          $bg-color       	$light-gray 		$text-color          	$light-gray
 client.unfocused        $inactive-bg-color 	$inactive-bg-color	$inactive-text-color    #232729
 client.focused_inactive $inactive-bg-color 	$inactive-bg-color	$inactive-text-color 	#232729	
-client.urgent           $urgent-bg-color    	$urgent-bg-color 	$text-color          	#232729
+client.urgent           $urgent-bg-color    $urgent-bg-color 	$text-color          	#232729
                                                                                                    
-# hide_edge_borders smart
-# bar
 bar {
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    position top
+	i3bar_command i3bar -t
+	tray_output primary
+    status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
 	height 18
 	colors {
 		background $bg-color
@@ -244,60 +249,11 @@ bar {
 	}
 }
 
-#Lock the desktop
-bindsym $mod+shift+x exec --no-startup-id light-locker-command -l
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
-
-# Screen timeout toggle
-# bindsym $mod+F4 exec --no-startup-id /home/mukul/scripts/toggleScreenTimeout.sh
-exec_always --no-startup-id xset s off -dpms
-
-# Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-#Handle floating windows
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="task_dialog"] floating enable
-floating_minimum_size 75 x 50
-floating_maximum_size 700x700
-
-#Keep wallpaper
-exec_always --no-startup-id nitrogen --head=0 --set-zoom ~/Pictures/wallpaper.jpg
-exec_always --no-startup-id nitrogen --head=1 --set-zoom ~/Pictures/wallpaper.jpg
-
-#Launch compton
-exec_always --no-startup-id compton --config ~/.config/compton/compton.conf -b
-
-#Launch redshift
-exec --no-startup-id redshift -O 5000
-bindsym $mod+shift+z exec --no-startup-id redshift -x
-
-#Launch libinput-gestures
-exec_always --no-startup-id libinput-gestures-setup start
-
-#Take screenshots
-#bindsym --release Print exec "scrot -m '/home/mukul/Pictures/screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
-#bindsym --release Shift+Print exec "scrot -s '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
-#bindsym --release $mod+Shift+Print exec "scrot -u '/home/mukul/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
-bindsym --release Print exec "maim -u /home/mukul/Pictures/screenshots/$(date +%s).png"
-bindsym --release Shift+Print exec "maim -u -s /home/mukul/Pictures/screenshots/$(date +%s).png"
-
-#Always enable light-locker
-exec_always --no-startup-id light-locker
-
-# launch pcmanfm daemon
-exec --no-startup-id pcmanfm -d
+# move containder
+bindsym $mod+bracketleft move container to output left
+bindsym $mod+bracketright move container to output right
+bindsym $mod+shift+bracketleft move workspace to output left
+bindsym $mod+shift+bracketright move workspace to output right
 
 #Lock, suspend, shutdown, reboot
 set $Locker light-locker-command -l && sleep 1
@@ -316,9 +272,6 @@ mode "$mode_system" {
 # bind the shortcut
 # Shortcut: Super+Pause Lock/Logout/Suspend/Reboot/Shutdown
 bindsym $mod+Pause mode "$mode_system"
-
-# open the file explorer
-bindsym $mod+g exec --no-startup-id pcmanfm
 
 # The middle button over a titlebar kills the window
 bindsym --release button2 kill
@@ -341,30 +294,49 @@ bindsym $mod+plus exec --no-startup-id i3-msg gaps inner all set $default_inner_
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
-#disable title bar
-for_window [class=".*"] border pixel 3
-for_window [class="Dunst"] border pixel 0
+## AUTOSTART ALWAYS
+exec_always --no-startup-id xset s off -dpms
+exec_always --no-startup-id ~/scripts/setWallpaper.sh
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf -b
+exec_always --no-startup-id libinput-gestures-setup start
+exec_always --no-startup-id light-locker
 
-#start nm-applet on boot
-#exec_always --no-startup-id sleep 2; nm-applet
+## AUTOSTART
+exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id redshift -O 5000
+exec --no-startup-id clipmenud
+exec --no-startup-id dunst &
+exec --no-startup-id sleep 10 && thunderbird &
+
+## CUSTOM KEYBINDINGS
+#Lock the desktop
+bindsym $mod+shift+x exec --no-startup-id light-locker-command -l
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym $mod+g exec --no-startup-id pcmanfm
 bindsym $mod+shift+n exec --no-startup-id nm-applet
 bindsym $mod+shift+m exec --no-startup-id pkill nm-applet
-
-#start clipboard daemon
-exec --no-startup-id clipmenud
 bindsym $mod+c exec --no-startup-id clipmenu -i -fn "Ubuntu-10:bold" -nb '#000000' -sb '#33393b'
-
-
 bindsym $mod+y fullscreen disable; floating enable; resize set 420 280; sticky enable; move window to position 800 10
-
-# Dunst
-exec --no-startup-id dunst &
+bindsym --release Print exec "maim -u ~/Pictures/screenshots/$(date +%s).png"
+bindsym --release Shift+Print exec "maim -u -s ~/Pictures/screenshots/$(date +%s).png"
+bindsym --release $mod+Shift+Print exec ~/scripts/tesseractOCRClipboard.sh
 bindsym $mod+t exec --no-startup-id notify-send -t 3000 "$(xtitle)"
-bindsym $mod+w exec --no-startup-id notify-send -t 10000 "$(~/.config/i3/weather.sh \"ASI|IN|IN010|NEWDELHI\")"
-bindsym $mod+u exec --no-startup-id notify-send -t 5000 "$(checkupdates)"
-
-#move containder
-bindsym $mod+bracketleft move container to output left
-bindsym $mod+bracketright move container to output right
-bindsym $mod+shift+bracketleft move workspace to output left
-bindsym $mod+shift+bracketright move workspace to output right
+# bindsym $mod+shift+w exec --no-startup-id notify-send -t 10000 "$(~/scripts/weather.sh \"ASI|IN|IN010|NEWDELHI\")"
+bindsym $mod+shift+i exec --no-startup-id ~/scripts/externalIp.sh
+bindsym $mod+shift+z exec --no-startup-id redshift -x
+bindsym $mod+shift+a exec rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip -selection clipboard"

@@ -1,10 +1,10 @@
-#!/bin/bash
-if [[ $EUID -ne 0 ]]; then
+#!/bin/sh
+if [ $(id -u) -ne 0 ]; then
    echo "This script must be run as root"
    exit 1
 fi
 
-if [[ $# -ne 1 ]]; then
+if [ $# -ne 1 ]; then
    echo "Pass image path as the first argument"
    exit 1
 fi

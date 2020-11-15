@@ -1,0 +1,155 @@
+" The ArchLinux global vimrc - setting only a few sane defaults
+"
+" NEVER EDIT THIS FILE, IT'S OVERWRITTEN UPON UPGRADES, GLOBAL CONFIGURATION
+" SHALL BE DONE IN /etc/vimrc, USER SPECIFIC CONFIGURATION IN ~/.vimrc
+
+" Normally we use vim-extensions. If you want true vi-compatibility
+" remove change the following statements
+set nocompatible                " Use Vim defaults instead of 100% vi compatibility
+set backspace=indent,eol,start  " more powerful backspacing
+syntax on 			"enable syntax highlighting
+set number			"display line numbers
+set cindent			"auto indent
+set smartindent			"enable smartindent
+set showcmd			"display commands
+set t_Co=256
+
+" load packages using pathogen
+execute pathogen#infect()
+
+" Load plugins using Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+
+"Keep plugins between begin and end
+" Load hexHighlight
+
+call vundle#end()
+
+" Now we set some defaults for the editor
+set history=50                  " keep 50 lines of command line history
+set ruler                       " show the cursor position all the time
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+" These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
+
+" Move the swap file location to protect against CVE-2017-1000382
+if ! isdirectory('~/.vim/swap/')
+  silent! call system('install -dm 700 ~/.vim/swap')
+endif
+set directory=~/.vim/swap/
+
+if has('gui_running')
+  " Make shift-insert work like in Xterm
+  map <S-Insert> <MiddleMouse>
+  map! <S-Insert> <MiddleMouse>
+endif
+
+let g:powerline_pycmd = 'py3'
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+set laststatus=2 " Always display the statusline in all windows
+
+set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+filetype plugin indent on
+"let g:pydiction_location = '/home/mukul/.vim/bundle/pydiction/complete-dict'
+"let g:pydiction_menu_height = 3
+
+set listchars=tab:▸\ ,eol:¬
+
+" set behaviour of tabs
+set ts=4 sts=4 sw=4 expandtab
+if has("autocmd")
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=4 et
+    autocmd FileType makefile setlocal ts=4 sts=4 sw=4 noet
+endif
+
+" move away from buffers without saving changes
+set hidden
+
+" set wildmenu (for tabs)
+set wildmenu
+
+
+" switch between windows
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" editing files using edit command
+let mapleader=','
+map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Toggle spell checking
+nmap <silent> <leader>s :set spell!<CR>
+
+command! -nargs=* Wrap set wrap linebreak nolist
+
+" update vim on the fly when .vimrc is saved
+if has("autocmd")
+    autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+nmap <leader>v :tabedit $MYVIMRC<CR>
+
+" setting the cursor color
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
+" using hexHighlight to highlight colours
+nmap <F2> <Plug>ToggleHexHighlight
+nmap <leader><F2> <Plug>ToggleSchemeHighlight
+
+" bubbling text up and down
+map <C-Up> [e
+map <C-Down> ]e
+" bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down? ]egv
+
+" finding files is subdirectories
+set path+=**
+
+" using the mouse
+" set mouse=a
+
+" setup netrw
+function! ToggleVExplorer()
+if exists("t:expl_buf_num")
+let expl_win_num = bufwinnr(t:expl_buf_num)
+if expl_win_num != -1
+let cur_win_nr = winnr()
+exec expl_win_num . 'wincmd w'
+close
+exec cur_win_nr . 'wincmd w'
+unlet t:expl_buf_num
+else
+unlet t:expl_buf_num
+endif
+else
+exec '1wincmd w'
+Vexplore
+let t:expl_buf_num = bufnr("%")
+endif
+endfunction
+
+nnoremap <F3> :call ToggleVExplorer()<cr>
+
+" default .ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = ".vim/.ycm_extra_conf.py"

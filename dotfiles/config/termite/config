@@ -1,5 +1,5 @@
 [options]
-font = Ubuntu Mono Regular 11
+font = Ubuntu Mono Nerd Font 11
 browser = chromium
 clickable_url = false
 dynamic_title = true
@@ -33,7 +33,7 @@ fullscreen = false
 [colors]
 # special
 foreground  = #dcdccc
-background = rgba(0, 0, 0, 0.80)
+background = rgba(0, 0, 0, 0.95)
 cursorColor = #c5c8c6
 
 # black

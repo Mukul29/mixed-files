@@ -5,6 +5,8 @@
 #
 #(c) Michael Seiler 2007
 
+#"ASI|IN|IN010|NEWDELHI"
+
 METRIC=1 #Should be 0 or 1; 0 for F, 1 for C
 
 if [ -z $1 ]; then

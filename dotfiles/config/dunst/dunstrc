@@ -179,7 +179,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -nb "#000000" -sb "#33393b" -fn "Ubuntu-10:bold" -p dunst:
+    dmenu = /usr/bin/dmenu
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/chromium
@@ -237,7 +237,7 @@
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1". Make sure this key actually exists on your keyboard layout,
     # e.g. check output of 'xmodmap -pke'
-    history = ctrl+grave
+    history = ctrl+shift+grave
 
     # Context menu.
     context = ctrl+shift+period
@@ -294,7 +294,7 @@
 #    script = dunst_test.sh
 
 #[ignore]
-#    # This notification will not be displayed
+#    # This notification w
 #    summary = "foobar"
 #    format = ""
 
